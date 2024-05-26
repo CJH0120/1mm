@@ -1,9 +1,15 @@
+"use client"
+import { signIn, signOut } from "next-auth/react"
+import { useEffect } from "react"
+
 const LoginPage = () => {
-	return (
-		<div>
-			<h1>Login Page</h1>
-		</div>
-	)
+	const handleSubmit = async () => {
+		await signIn("google", { callbackUrl: "/admin" })
+	}
+	useEffect(() => {
+		handleSubmit()
+	}, [])
+	return <div></div>
 }
 
 export default LoginPage

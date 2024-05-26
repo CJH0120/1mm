@@ -7,6 +7,7 @@ const LoginPage = () => {
 		await signIn("google", { callbackUrl: "/admin" })
 	}
 	useEffect(() => {
+		if (!window) return
 		handleSubmit()
 	}, [])
 	return <div></div>

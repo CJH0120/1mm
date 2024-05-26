@@ -1,6 +1,8 @@
 import { decode } from "next-auth/jwt"
 import { NextRequest, NextResponse } from "next/server"
-
+export const config = {
+	runtime: "nodejs",
+}
 export async function middleware(request: NextRequest) {
 	const cookie = request.cookies.get("next-auth.session-token")
 	const payload = await decode({

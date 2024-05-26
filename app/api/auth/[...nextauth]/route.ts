@@ -31,6 +31,18 @@ const handler = NextAuth({
 		signIn: "/auth/login",
 	},
 	callbacks: {},
+	cookies: {
+		sessionToken: {
+			name: "1mm-auth",
+			options: {
+				domain: ".localhost",
+				path: "/",
+				httpOnly: true,
+				sameSite: "lax",
+				secure: false,
+			},
+		},
+	},
 })
 
 export { handler as GET, handler as POST }

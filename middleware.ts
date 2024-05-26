@@ -18,10 +18,7 @@ export async function middleware(request: NextRequest) {
 	}
 
 	if (request.nextUrl.pathname.startsWith("/admin")) {
-		console.log(payload?.email)
-		console.log(process.env.PASS_EMAIL)
-		console.log(process.env.PASS_EMAIL === payload?.email)
-		if (!payload || payload?.email !== process.env.PASS_EMAIL) {
+		if (!payload || payload?.email !== process.env.NEXT_PUBLIC_PASS_EMAIL) {
 			const response = NextResponse.redirect(new URL("/", request.url))
 			response.cookies.delete("__Secure-next-auth.session-token")
 			response.cookies.delete("next-auth.session-token")

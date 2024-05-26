@@ -1,4 +1,5 @@
 import { decode } from "next-auth/jwt"
+import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 export const config = {
 	runtime: "nodejs",
@@ -19,8 +20,12 @@ export async function middleware(request: NextRequest) {
 	if (request.nextUrl.pathname.startsWith("/admin")) {
 		if (!payload || payload?.email !== process.env.PASS_EMAIL) {
 			const response = NextResponse.redirect(new URL("/", request.url))
-			response.cookies.delete("next-auth.session-token")
-
+			const cookieArray = cookies()
+				.getAll()
+				.map((cookie) => cookie.name)
+			await Promise.all(
+				cookieArray.map((cookie) => response.cookies.delete(cookie))
+			)
 			return response
 		}
 	}

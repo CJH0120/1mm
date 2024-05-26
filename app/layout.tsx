@@ -15,7 +15,9 @@ export default function RootLayout({
 	return (
 		<html lang="kr">
 			<body>
-				<AuthContext>{children}</AuthContext>
+				<AuthContext>
+					<main className="min-h-screen flex flex-col">{children}</main>
+				</AuthContext>
 			</body>
 		</html>
 	)

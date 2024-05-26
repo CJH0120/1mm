@@ -35,7 +35,6 @@ const handler = NextAuth({
 		sessionToken: {
 			name: "1mm-auth",
 			options: {
-				domain: ".localhost",
 				path: "/",
 				httpOnly: true,
 				sameSite: "lax",

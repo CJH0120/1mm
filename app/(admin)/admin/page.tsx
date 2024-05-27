@@ -1,8 +1,9 @@
 const AdminPage = () => {
 	return (
-		<div>
-			<h1>Admin Page</h1>
+		<div className="flex flex-1 w-full flex-col sm:flex-row">
+			{/* content */}asdsad
 		</div>
 	)
 }
+
 export default AdminPage

@@ -1,13 +1,15 @@
-"use server"
-import { decode } from "next-auth/jwt"
-import { cookies } from "next/headers"
-import { prisma } from "@/db/prisma"
-import { redirect } from "next/navigation"
+import Header from "../_components/header"
 
-export default async function AdminLayout({
+export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	return children
+	return (
+		<div className="flex flex-1 w-full flex-col sm:flex-row">
+			<Header />
+			{/* content */}
+			{children}
+		</div>
+	)
 }

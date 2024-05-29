@@ -5,7 +5,7 @@ export interface CategoryProps {
 	id: number
 	category_name: string
 }
-const getCategory = async (): Promise<CategoryProps[]> => {
+export const getCategory = async (): Promise<CategoryProps[]> => {
 	return await prisma.tag.findMany({
 		select: { category_name: true, id: true },
 	})

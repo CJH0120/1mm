@@ -82,7 +82,6 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 	const detailData = await getDetail(params.id)
 
 	if (!detailData) return notFound()
-	console.log(detailData)
 	return (
 		<div className="px-5 w-full max-w-[777px]">
 			<article className="h-fit">
@@ -142,8 +141,9 @@ const ProductSection = ({ contents }: QuicklyProps) => {
 			<div className="py-5">
 				{contents.map((v, idx) => (
 					<Link
+						target="_blank"
 						href={v.cupang_link}
-						className="w-full flex gap-4 flex-col"
+						className="w-full flex gap-4 flex-col py-5 border-b"
 						key={v.cupang_link}
 					>
 						<div className="w-full  flex gap-2 font-bold    text-xl ">
@@ -218,8 +218,9 @@ const Quickly = ({ contents }: QuicklyProps) => {
 								</CardDescription>
 							))}
 						</div>
-
-						<Button size={"sm"}>구매하기</Button>
+						<Link href={v.cupang_link} target="_blank">
+							<Button size={"sm"}>구매하기</Button>
+						</Link>
 					</div>
 				</div>
 			))}

@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/admin", request.url))
 	}
 	if (request.nextUrl.pathname.startsWith("/admin")) {
-		if (!payload || payload?.email !== process.env.NEXT_PUBLIC_PASS_EMAIL) {
+		if (!payload || payload?.email !== process.env.PASS_EMAIL) {
 			const response = NextResponse.redirect(new URL("/", request.url))
 			response.cookies.delete("1mm")
 			response.cookies.delete("1mm-auth")

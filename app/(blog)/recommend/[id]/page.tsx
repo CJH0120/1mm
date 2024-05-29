@@ -36,7 +36,6 @@ const getDetail = async (id: string): Promise<DetailProps | null> => {
 				},
 			},
 		})
-		console.log(post)
 		return {
 			id: post.id,
 			thumbnail: post.thumbnail,

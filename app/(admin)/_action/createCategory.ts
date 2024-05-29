@@ -12,15 +12,13 @@ export const createCategory = async (path: string, name: string) => {
 	})
 
 	if (!payload) return redirect("/")
-	if (payload.email !== process.env.NEXT_PUBLIC_PASS_EMAIL) return redirect("/")
-	console.log(payload)
+	if (payload.email !== process.env.PASS_EMAIL) return redirect("/")
 	const user = await prisma.user.findFirstOrThrow({
 		where: {
 			email: payload.email,
 		},
 		select: { id: true },
 	})
-
 	if (payload) {
 		try {
 			await prisma.tag.create({
@@ -30,7 +28,7 @@ export const createCategory = async (path: string, name: string) => {
 					userId: user.id,
 				},
 			})
-			revalidatePath("/admin/")
+			revalidatePath("/admin/tags")
 			return { status: "success" }
 		} catch (error) {
 			console.log(error)

@@ -7,6 +7,7 @@ import { PlusIcon, MinusIcon, ButtonIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { CardTitle } from "@/components/ui/card"
+import { useRouter } from "next/navigation"
 import { CategoryProps } from "../page"
 import {
 	Select,
@@ -17,6 +18,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
+import { AddPost } from "../_action/addPost"
 
 export interface Content {
 	title: string
@@ -31,6 +33,7 @@ interface PostAdd {
 	categories: CategoryProps[]
 }
 const PostAdd = ({ categories }: PostAdd) => {
+	const router = useRouter()
 	const [content, setContent] = useState<Content[]>([
 		{
 			title: "",
@@ -55,9 +58,10 @@ const PostAdd = ({ categories }: PostAdd) => {
 	}
 	const [title, setTitle] = useState<string>("")
 	const [thumbnail, setThumbnail] = useState<string>("")
+	const [desc, setDesc] = useState<string>("")
 	const handleAdd = async () => {
-		console.log(content)
-		// await addPost({ content: content as any, title: title, desc: desc });
+		const id = await AddPost(title, desc, thumbnail, content, Number(category))
+		router.push(`/recommend/${id}`)
 	}
 	return (
 		<div className="w-full max-w-[800px] flex flex-col justify-center p-5  mx-auto">
@@ -101,7 +105,10 @@ const PostAdd = ({ categories }: PostAdd) => {
 					className="w-full flex flex-grow-0 flex-shrink-0 h-[50px] rounded"
 					placeholder="제목"
 				/>
-				<Textarea placeholder="Type your message here." />
+				<Textarea
+					placeholder="Type your message here."
+					onChange={(e) => setDesc(e.target.value)}
+				/>
 				<Contents
 					content={content}
 					handleChange={handleChange}

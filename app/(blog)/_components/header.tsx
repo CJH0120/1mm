@@ -3,6 +3,7 @@
 import { usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 interface Props {
 	id: number
@@ -12,27 +13,25 @@ interface Props {
 interface HeaderProps {
 	category: Props[]
 }
-const Header = ({ category }: HeaderProps) => {
-	const pathName = usePathname()
+const BlogHeader = () => {
 	return (
-		<nav className="flex border w-full max-w-[1200px] mx-auto">
-			<div className="flex gap-3">
-				<Link href={"/"}>
-					<Button variant={pathName === `/` ? "default" : "ghost"}>홈</Button>
-				</Link>
-				{category?.map((v) => (
-					<Link href={`/${v.path}`} key={v.id}>
-						<Button
-							variant={pathName === `/${v.path}` ? "default" : "ghost"}
-							key={v.id}
-						>
-							{v.category_name}
-						</Button>
-					</Link>
-				))}
-			</div>
-		</nav>
+		<div className="flex  flex-col w-full  mx-auto  justify-center border-b sticky top-0  bg-white z-50">
+			<nav className="flex justify-center  w-full p-3 border-b ">
+				<div className="w-full  flex max-w-[1200px]">
+					<div className="flex gap-3 justify-center ">
+						<Link href={"/"}>
+							<Image
+								src={"/logo/logo.webp"}
+								alt="logo"
+								width={120}
+								height={60}
+							/>
+						</Link>
+					</div>
+				</div>
+			</nav>
+		</div>
 	)
 }
 
-export default Header
+export default BlogHeader

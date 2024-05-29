@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next"
 import { prisma } from "@/db/prisma"
 
-const getPost = async () => {
+const generateSitemaps = async () => {
 	return await prisma.post.findMany({
 		select: {
 			createdAt: true,
@@ -10,7 +10,7 @@ const getPost = async () => {
 	})
 }
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const data = await getPost()
+	const data = await generateSitemaps()
 
 	const posts = data.map((post) => ({
 		url: `https://1mm.creation.im/recommend${post.id}`,

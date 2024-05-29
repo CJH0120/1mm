@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
 			allow: "/",
 			disallow: "/admin/*",
 		},
-		sitemap: "https://1mm.creation.im/sitemap.xml",
+		sitemap: "https://1mm.creation.im/sitemap",
 	}
 }

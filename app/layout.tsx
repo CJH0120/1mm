@@ -32,12 +32,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="kr">
-			<Head>
+			<head>
 				<meta
 					name="naver-site-verification"
 					content="c234979fafb9c7228f99f0d62b28e87a3ac7ba64"
 				/>
-			</Head>
+			</head>
 			<body>
 				<SpeedInsights />
 				<Analytics />

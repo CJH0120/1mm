@@ -27,7 +27,6 @@ export interface Content {
 	briefLists: any[]
 	commentList: any[]
 	reiviews: any[]
-	cupang_link: string
 	id?: number
 	productImage: string
 	title: string
@@ -207,7 +206,6 @@ interface ContentItemProps {
 	setContent: React.Dispatch<React.SetStateAction<Content[]>>
 }
 const ContentItem = ({
-	cupang_link,
 	commentList,
 	reiviews,
 	setContent,
@@ -259,12 +257,6 @@ const ContentItem = ({
 				placeholder="title"
 				value={title}
 				onChange={(e) => handleChange(index, "title", e.target.value)}
-			/>
-			<Input
-				name="cupang_link"
-				placeholder="쿠팡링크"
-				value={cupang_link}
-				onChange={(e) => handleChange(index, "cupang_link", e.target.value)}
 			/>
 
 			{/* 상품설며ㅑㅇ */}

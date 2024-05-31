@@ -23,7 +23,6 @@ import { AddPost } from "../_action/addPost"
 export interface Content {
 	title: string
 	thumbnail: string
-	cupangLink: string
 	productList: string[]
 	review: string[]
 	briefList: string[]
@@ -37,7 +36,6 @@ const PostAdd = ({ categories }: PostAdd) => {
 	const [content, setContent] = useState<Content[]>([
 		{
 			title: "",
-			cupangLink: "",
 			thumbnail: "",
 			briefList: [""],
 			productList: [""],
@@ -192,7 +190,6 @@ interface ContentItemProps {
 }
 const ContentItem = ({
 	briefList,
-	cupangLink,
 	productList,
 	review,
 	setContent,
@@ -243,12 +240,6 @@ const ContentItem = ({
 				placeholder="title"
 				value={title}
 				onChange={(e) => handleChange(index, "title", e.target.value)}
-			/>
-			<Input
-				name="cupangLink"
-				placeholder="쿠팡링크"
-				value={cupangLink}
-				onChange={(e) => handleChange(index, "cupangLink", e.target.value)}
 			/>
 
 			{/* 상품설며ㅑㅇ */}

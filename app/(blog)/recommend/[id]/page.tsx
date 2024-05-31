@@ -5,6 +5,7 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Metadata, ResolvingMetadata } from "next"
+export const dynamic = "force-static"
 
 interface DetailProps {
 	id: number
@@ -21,7 +22,6 @@ interface DetailProps {
 		briefLists: { text: string }[]
 	}[]
 }
-
 const getDetail = async (id: string): Promise<DetailProps | null> => {
 	try {
 		const post = await prisma.post.findFirstOrThrow({

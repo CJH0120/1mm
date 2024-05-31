@@ -3,7 +3,7 @@ import BlogCard from "./_components/card"
 import { prisma } from "@/db/prisma"
 import { API } from "@/interface/api"
 
-export const revalidate = 100
+export const dynamic = "force-static"
 const getItems = async (): Promise<API.BlogCardProps[]> => {
 	const data = prisma.post.findMany({
 		select: {

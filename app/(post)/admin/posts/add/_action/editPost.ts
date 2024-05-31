@@ -12,6 +12,18 @@ export const UpdatePost = async (
 	content: Content[],
 	category: number
 ): Promise<number | Error> => {
+	const contents = content.map((content) => {
+		return content.title
+	})
+	const cupang_links = await fetch(process.env.URL + "/api/cupang/encode", {
+		method: "POST",
+		body: JSON.stringify({ search: contents }),
+	}).then((res) => res.json())
+	const updatedContent = content.map((content, index) => ({
+		...content,
+		cupang_link: cupang_links.shortenUrls[index],
+	}))
+
 	try {
 		return await prisma.$transaction(async (tx) => {
 			await tx.post.update({
@@ -55,7 +67,7 @@ export const UpdatePost = async (
 				},
 			})
 
-			for (const v of content) {
+			for (const v of updatedContent) {
 				const contentRecord = await tx.content.create({
 					data: {
 						cupang_link: v.cupang_link,

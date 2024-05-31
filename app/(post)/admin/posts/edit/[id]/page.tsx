@@ -1,7 +1,7 @@
 import { prisma } from "@/db/prisma"
 import EditPost, { Content } from "./_components/editPost"
 import { CategoryProps, getCategory } from "../../add/page"
-
+export const dynamic = "force-dynamic"
 const getPosts = async (
 	id: string
 ): Promise<{

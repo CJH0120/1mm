@@ -1,5 +1,6 @@
 import PostAdd from "./_components/addPost"
 import { prisma } from "@/db/prisma"
+export const dynamic = "force-dynamic"
 
 export interface CategoryProps {
 	id: number

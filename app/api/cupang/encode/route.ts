@@ -6,7 +6,29 @@ export async function POST(req: Request) {
 	const REQUEST_METHOD = "POST"
 	const DOMAIN = "https://api-gateway.coupang.com"
 	const URL = "/v2/providers/affiliate_open_api/apis/openapi/v1/deeplink"
+	const authorization = GenerateHmac(REQUEST_METHOD, URL)
+	const searchURI = encodeURI(search)
 
-	console.log(GenerateHmac(REQUEST_METHOD, DOMAIN + URL))
-	return Response.json({ search })
+	const searchArray: string[] = search
+
+	const deepLinks = searchArray.map((item) => {
+		const searchURI = encodeURI(item)
+		return `https://www.coupang.com/np/search?rocketAll=true&component=&q=${searchURI}&channel=user`
+	})
+	const REQUEST = {
+		coupangUrls: deepLinks,
+		subId: "AF9387002",
+	}
+
+	const res = await fetch(`${DOMAIN}${URL}`, {
+		method: REQUEST_METHOD,
+		headers: {
+			"content-type": "application/json",
+			Authorization: authorization,
+		},
+		body: JSON.stringify(REQUEST),
+	}).then((v) => v.json())
+	console.log(res)
+
+	return Response.json({ res })
 }

@@ -12,7 +12,7 @@ export const AddPost = async (
 	category: number
 ) => {
 	try {
-		await prisma.$transaction(async (tx): Promise<number | Error> => {
+		return await prisma.$transaction(async (tx): Promise<number | Error> => {
 			const user = await tx.user.findFirstOrThrow({
 				where: {
 					email: process.env.PASS_EMAIL,

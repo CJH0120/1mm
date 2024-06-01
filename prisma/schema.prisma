@@ -67,11 +67,10 @@ model Post{
   tag       Tag    @relation(fields: [tagId], references: [id])
   user          User     @relation(fields: [userId], references: [id])
   contents     Content[]
+  userSelects UserSelect[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
   @@index([userId])
-  
 }
 
 
@@ -86,6 +85,7 @@ model Content{
   commentList CommentList[]
   reiviews ReviewList[]
   briefLists  BriefList[]
+  userSelects UserSelect[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   @@index([postId])
@@ -114,7 +114,19 @@ model BriefList{
   text String @db.Text
   contentId Int
   Content          Content     @relation(fields: [contentId], references: [id])
-    createdAt     DateTime @default(now())
+  createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   @@index([contentId])
+}
+
+
+model UserSelect{
+  id Int  @id @default(autoincrement())
+  postId Int
+  contentId Int
+  createdAt     DateTime @default(now())
+  Post      Post     @relation(fields: [postId], references: [id])
+  Content   Content  @relation(fields: [contentId], references: [id])
+  @@index([contentId])
+  @@index([postId])
 }

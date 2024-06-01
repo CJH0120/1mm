@@ -2,9 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import AuthContext from "@/utils/AuthContext"
 import image from "@/public/logo/og.png"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
-
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 export const metadata: Metadata = {
@@ -40,8 +38,6 @@ export default function RootLayout({
 			</head>
 
 			<body>
-				<SpeedInsights />
-				<Analytics />
 				<AuthContext>
 					<main className="min-h-screen flex flex-col">{children}</main>
 				</AuthContext>

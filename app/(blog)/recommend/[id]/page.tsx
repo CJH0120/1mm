@@ -97,7 +97,7 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 	return (
 		<div className="px-5 w-full max-w-[777px]">
 			<article className="h-fit">
-				<header className="w-full p-[24px]">
+				<header className="w-full ">
 					<div className="w-full  relative aspect-square max-h-[300px]  rounded-sm	 ">
 						<Image
 							style={{ objectFit: "cover" }}

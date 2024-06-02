@@ -12,7 +12,7 @@ const Quickly = ({ contents, postId }: QuicklyProps) => {
 	return (
 		<div className="flex flex-col gap-4">
 			<CardTitle className="text-2xl">💡 게시글 요약</CardTitle>
-			{contents.map((v) => (
+			{contents?.map((v) => (
 				<div className="w-full flex gap-4 flex-col" key={v.cupang_link}>
 					<div className="border p-5 rounded-sm flex items-center justify-between">
 						<div className="flex flex-col">

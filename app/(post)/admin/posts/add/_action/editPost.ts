@@ -121,12 +121,15 @@ export const UpdatePost = async (
 					}
 				}
 			}
-			revalidatePath("/")
-			revalidatePath(`/recommend/${id}`)
+
 			return id
 		})
 	} catch (error) {
 		console.error("Error updating post and content:", error)
 		throw new Error("Failed to update post and content")
+	} finally {
+		revalidatePath("/")
+		revalidatePath(`/recommend/${id}`)
+		await prisma.$disconnect()
 	}
 }

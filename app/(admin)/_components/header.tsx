@@ -29,7 +29,7 @@ const Header = () => {
 				</div>
 				{/* 태그 */}
 				<div className="hidden flex-col gap-3 sm:flex w-full">
-					{headerMenu.map((menu) => (
+					{headerMenu?.map((menu) => (
 						<Link
 							className="w-full"
 							href={`/admin/${menu.href}`}

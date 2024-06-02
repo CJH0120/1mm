@@ -45,7 +45,7 @@ const PostAdd = ({ categories }: PostAdd) => {
 	const [category, setCategory] = useState<string>("")
 	const handleChange = (index: number, name: string, value: string) => {
 		setContent((prev) => {
-			const updatedContent = prev.map((item, i) => {
+			const updatedContent = prev?.map((item, i) => {
 				if (i === index) {
 					return { ...item, [name]: value }
 				}
@@ -74,7 +74,7 @@ const PostAdd = ({ categories }: PostAdd) => {
 					</SelectTrigger>
 					<SelectContent>
 						<SelectGroup>
-							{categories.map((v) => (
+							{categories?.map((v) => (
 								<SelectItem value={String(v.id)} key={v.id}>
 									{v.category_name}
 								</SelectItem>
@@ -170,7 +170,7 @@ const Contents = ({ content, handleChange, setContent }: ContentProps) => {
 					콘텐츠 삭제 <MinusIcon />
 				</Button>
 			</div>
-			{content.map((v, index) => (
+			{content?.map((v, index) => (
 				<ContentItem
 					setContent={setContent}
 					key={index}

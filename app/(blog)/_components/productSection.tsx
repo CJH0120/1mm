@@ -20,7 +20,7 @@ const ProductSection = ({ contents, postId }: QuicklyProps) => {
 			<hr className="border" />
 
 			<div className="py-5">
-				{contents.map((v, idx) => (
+				{contents?.map((v, idx) => (
 					<Link
 						onClick={() => handleClick(v.id)}
 						target="_blank"

@@ -37,6 +37,8 @@ export const createCategory = async (path: string, name: string) => {
 		} catch (error) {
 			console.log(error)
 			return { status: "error", errorMessage: "중복된 데이터." }
+		} finally {
+			await prisma.$disconnect()
 		}
 	}
 }

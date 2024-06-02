@@ -6,10 +6,16 @@ interface Props {
 	postId: number
 }
 export const UserSelectLog = async ({ contentId, postId }: Props) => {
-	return await prisma.userSelect.create({
-		data: {
-			contentId,
-			postId,
-		},
-	})
+	try {
+		return await prisma.userSelect.create({
+			data: {
+				contentId,
+				postId,
+			},
+		})
+	} catch (error) {
+		return null
+	} finally {
+		await prisma.$disconnect()
+	}
 }

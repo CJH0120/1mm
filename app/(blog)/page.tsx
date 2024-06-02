@@ -29,13 +29,15 @@ const getItems = async (): Promise<API.BlogCardProps[]> => {
 		}))
 	} catch (error) {
 		return []
+	} finally {
+		await prisma.$disconnect()
 	}
 }
 export default async function Home() {
 	const data = await getItems()
 	return (
 		<div className="max-w-[812px] w-full flex flex-col flex-1 gap-8 p-4">
-			{data.map((v) => (
+			{data?.map((v) => (
 				<BlogCard {...v} key={v.cardId} />
 			))}
 		</div>

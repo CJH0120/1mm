@@ -77,12 +77,14 @@ export const AddPost = async (
 					await tx.reviewList.createMany({ data: reviewData })
 				}
 			}
-			revalidatePath("/")
 
 			return post.id
 		})
 	} catch (error) {
 		console.error("Error creating post and content:", error)
 		throw new Error("Failed to create post and content")
+	} finally {
+		revalidatePath("/")
+		await prisma.$disconnect()
 	}
 }

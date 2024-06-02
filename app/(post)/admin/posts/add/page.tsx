@@ -6,14 +6,20 @@ export interface CategoryProps {
 	id: number
 	category_name: string
 }
-export const getCategory = async (): Promise<CategoryProps[]> => {
-	return await prisma.tag.findMany({
-		select: { category_name: true, id: true },
-	})
+export const getCategory = async (): Promise<CategoryProps[] | null> => {
+	try {
+		return await prisma.tag.findMany({
+			select: { category_name: true, id: true },
+		})
+	} catch (error) {
+		return null
+	} finally {
+		await prisma.$disconnect()
+	}
 }
 
 const Page = async () => {
 	const categories = await getCategory()
-	return <PostAdd categories={categories} />
+	return <PostAdd categories={categories ?? []} />
 }
 export default Page

@@ -43,7 +43,7 @@ interface EditPostProp {
 		contents: Content[]
 		tag: CategoryProps
 	}
-	categories: CategoryProps[]
+	categories: CategoryProps[] | null
 }
 
 const EditPost = ({ categories, data }: EditPostProp) => {
@@ -88,7 +88,7 @@ const EditPost = ({ categories, data }: EditPostProp) => {
 					</SelectTrigger>
 					<SelectContent>
 						<SelectGroup>
-							{categories.map((v) => (
+							{categories?.map((v) => (
 								<SelectItem value={String(v.id)} key={v.id}>
 									{v.category_name}
 								</SelectItem>

@@ -68,6 +68,8 @@ const getDetail = async (id: string): Promise<DetailProps | null> => {
 		}
 	} catch (error) {
 		return null
+	} finally {
+		await prisma.$disconnect()
 	}
 }
 type Props = {

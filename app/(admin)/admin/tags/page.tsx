@@ -14,7 +14,13 @@ import { AdminLayout } from "../../_components/adminLayout"
 import AddModal from "../../_components/addModal"
 
 const getCategories = async () => {
-	return await prisma.tag.findMany()
+	try {
+		return await prisma.tag.findMany()
+	} catch (error) {
+		return null
+	} finally {
+		await prisma.$disconnect()
+	}
 }
 
 const TagPage = async () => {
@@ -33,7 +39,7 @@ const TagPage = async () => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{tags.map((v) => (
+					{tags?.map((v) => (
 						<TableRow key={v.id}>
 							<TableCell className="font-medium">{v.category_name}</TableCell>
 							<TableCell>Paid</TableCell>

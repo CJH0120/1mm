@@ -13,11 +13,17 @@ import Link from "next/link"
 import { AdminLayout } from "../../_components/adminLayout"
 import { prisma } from "@/db/prisma"
 const getPost = async () => {
-	return await prisma.post.findMany({
-		orderBy: {
-			createdAt: "desc",
-		},
-	})
+	try {
+		return await prisma.post.findMany({
+			orderBy: {
+				createdAt: "desc",
+			},
+		})
+	} catch (error) {
+		return null
+	} finally {
+		await prisma.$disconnect()
+	}
 }
 const PostPage = async () => {
 	const data = await getPost()
@@ -43,7 +49,7 @@ const PostPage = async () => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{data.map((v) => (
+					{data?.map((v) => (
 						<TableRow key={v.id}>
 							<TableCell className="font-medium">{v.id}</TableCell>
 							<TableCell>{v.tagId}</TableCell>

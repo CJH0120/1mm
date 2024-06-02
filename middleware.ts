@@ -16,10 +16,11 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/admin", request.url))
 	}
 	if (request.nextUrl.pathname.startsWith("/admin")) {
+		if (!payload)
+			return NextResponse.redirect(new URL("/auth/login", request.url))
 		if (
-			!payload ||
-			(payload.email !== process.env.PASS_EMAIL &&
-				payload.email !== process.env.PASS_EMAIL2)
+			payload.email === process.env.PASS_EMAIL &&
+			payload.email === process.env.PASS_EMAIL2
 		) {
 			const response = NextResponse.redirect(new URL("/", request.url))
 			response.cookies.delete("1mm")

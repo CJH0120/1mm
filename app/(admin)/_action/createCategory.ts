@@ -13,8 +13,8 @@ export const createCategory = async (path: string, name: string) => {
 
 	if (!payload) return redirect("/")
 	if (
-		payload.email !== process.env.PASS_EMAIL &&
-		payload.email !== process.env.PASS_EMAIL2
+		payload.email === process.env.PASS_EMAIL &&
+		payload.email === process.env.PASS_EMAIL2
 	)
 		return redirect("/")
 	const user = await prisma.user.findFirstOrThrow({

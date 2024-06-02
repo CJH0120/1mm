@@ -6,26 +6,30 @@ import BlogCard from "./_components/card"
 
 export const dynamic = "force-static"
 const getItems = async (): Promise<API.BlogCardProps[]> => {
-	const data = prisma.post.findMany({
-		select: {
-			thumbnail: true,
-			id: true,
-			desc: true,
-			title: true,
-			createdAt: true,
-		},
-		orderBy: {
-			createdAt: "desc",
-		},
-	})
-
-	return (await data).map((post: any) => ({
-		cardId: post.id,
-		cardTitle: post.title,
-		cardDesc: post.desc,
-		cardThumbnail: post.thumbnail,
-		regDate: post.createdAt.toISOString(),
-	}))
+	try {
+		const data = prisma.post.findMany({
+			select: {
+				thumbnail: true,
+				id: true,
+				desc: true,
+				title: true,
+				createdAt: true,
+			},
+			orderBy: {
+				createdAt: "desc",
+			},
+		})
+		console.log(await data)
+		return (await data).map((post: any) => ({
+			cardId: post.id,
+			cardTitle: post.title,
+			cardDesc: post.desc,
+			cardThumbnail: post.thumbnail,
+			regDate: post.createdAt.toISOString(),
+		}))
+	} catch (error) {
+		return []
+	}
 }
 export default async function Home() {
 	const data = await getItems()

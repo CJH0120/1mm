@@ -9,7 +9,6 @@ export const dynamic = "force-static"
 export const revalidate = false
 
 import dynamicImport from "next/dynamic"
-
 const DynamicPreview = dynamicImport(
 	() => import("@/components/comm/Preview"),
 
@@ -48,6 +47,7 @@ const getDetail = async (id: string): Promise<DetailProps | null> => {
 				},
 			},
 		})
+
 		return {
 			id: post.id,
 			thumbnail: post.thumbnail,
@@ -80,7 +80,6 @@ export async function generateMetadata(
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
 	const id = params.id
-
 	const data = await getDetail(id)
 	return {
 		title: data?.title,

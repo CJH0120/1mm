@@ -1,12 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton"
-import BlogCard from "./_components/card"
 import { prisma } from "@/db/prisma"
 import { API } from "@/interface/api"
 import dynamicImport from "next/dynamic"
-const DynamicCard = dynamicImport(() => import("./_components/card"), {
-	ssr: false,
-	loading: () => <Skeleton className="h- w-full" />,
-})
+import BlogCard from "./_components/card"
+
 export const dynamic = "force-static"
 const getItems = async (): Promise<API.BlogCardProps[]> => {
 	const data = prisma.post.findMany({
@@ -35,7 +32,7 @@ export default async function Home() {
 	return (
 		<div className="max-w-[812px] w-full flex flex-col flex-1 gap-8 p-4">
 			{data.map((v) => (
-				<DynamicCard {...v} key={v.cardId} />
+				<BlogCard {...v} key={v.cardId} />
 			))}
 		</div>
 	)

@@ -84,7 +84,7 @@ export async function generateMetadata(
 	const data = await getDetail(id)
 	return {
 		title: data?.title,
-		description: data?.desc,
+		description: data?.desc.replace(/(<([^>]+)>)/gi, ""),
 		openGraph: {
 			images: [data?.thumbnail ?? ""],
 		},

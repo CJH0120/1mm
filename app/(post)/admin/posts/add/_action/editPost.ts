@@ -37,17 +37,29 @@ export const UpdatePost = async (
 				},
 			})
 			for (const content of updatedContent) {
-				const updateContent = await tx.content.update({
-					where: {
-						id: content.id,
-						postId: id,
-					},
-					data: {
-						cupang_link: content.cupang_link,
-						productImage: content.productImage,
-						title: content.title,
-					},
-				})
+				let updateContent
+				if (content.id) {
+					updateContent = await tx.content.update({
+						where: {
+							id: content.id,
+							postId: id,
+						},
+						data: {
+							cupang_link: content.cupang_link,
+							productImage: content.productImage,
+							title: content.title,
+						},
+					})
+				} else {
+					updateContent = await tx.content.create({
+						data: {
+							postId: id,
+							cupang_link: content.cupang_link,
+							productImage: content.productImage,
+							title: content.title,
+						},
+					})
+				}
 
 				for (const brief of content.briefLists) {
 					if (brief.id) {

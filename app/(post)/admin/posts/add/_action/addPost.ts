@@ -78,6 +78,7 @@ export const AddPost = async (
 				}
 			}
 			revalidatePath("/")
+
 			return post.id
 		})
 	} catch (error) {

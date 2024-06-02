@@ -8,8 +8,16 @@ import { Metadata, ResolvingMetadata } from "next"
 import { UserSelectLog } from "../../_action/useUserSelect"
 import Quickly from "../../_components/quickly"
 import ProductSection from "../../_components/productSection"
-export const dynamic = "force-static"
 
+export const dynamic = "force-static"
+import dynamicImport from "next/dynamic"
+
+const DynamicPreview = dynamicImport(
+	() => import("@/components/comm/Preview"),
+	{
+		loading: () => <p>Loading...</p>,
+	}
+)
 interface DetailProps {
 	id: number
 	thumbnail: string
@@ -89,7 +97,7 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 	return (
 		<div className="px-5 w-full max-w-[777px]">
 			<article className="h-fit">
-				<header className="w-full py-[24px]">
+				<header className="w-full pt-[24px]">
 					<div className="w-full  relative aspect-square max-h-[300px]  rounded-sm	 ">
 						<Image
 							style={{ objectFit: "cover" }}
@@ -101,12 +109,10 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 					<h1 className="mt-[20px] font-bold text-[rgb(25,31,40)] text-ellipsis   sm:text-2xl text-xl">
 						{detailData.title}
 					</h1>
-					<div className="my-[20px]">{detailData.regDate}</div>
+					<div className="mt-[20px]">{detailData.regDate}</div>
 				</header>
 				<div className="py-5">
-					<h3 className="text-base block m-0  text-[rgb(78,89,104)]	">
-						{detailData.desc}
-					</h3>
+					<DynamicPreview content={detailData.desc} />
 
 					<div className="my-[30px] flex flex-col gap-9">
 						<ProductSection

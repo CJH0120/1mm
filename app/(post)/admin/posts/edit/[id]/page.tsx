@@ -29,9 +29,9 @@ const getPosts = async (
 			},
 			contents: {
 				select: {
-					briefLists: { select: { text: true } },
-					commentList: { select: { text: true } },
-					reiviews: { select: { text: true } },
+					briefLists: { select: { text: true, id: true } },
+					commentList: { select: { text: true, id: true } },
+					reiviews: { select: { text: true, id: true } },
 					cupang_link: true,
 					id: true,
 					productImage: true,
@@ -40,19 +40,13 @@ const getPosts = async (
 			},
 		},
 	})
-	const contents = data.contents.map((content) => ({
-		...content,
-		briefLists: content.briefLists.map((item) => item.text),
-		commentList: content.commentList.map((item) => item.text),
-		reiviews: content.reiviews.map((item) => item.text),
-	}))
 
 	return {
 		id: data.id,
 		title: data.title,
 		desc: data.desc,
 		thumbnail: data.thumbnail,
-		contents: contents,
+		contents: data.contents,
 		tag: data.tag,
 	}
 }

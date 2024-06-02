@@ -36,13 +36,11 @@ export default function RootLayout({
 					content="c234979fafb9c7228f99f0d62b28e87a3ac7ba64"
 				/>
 			</head>
-
 			<body>
 				<AuthContext>
 					<main className="min-h-screen flex flex-col">{children}</main>
 				</AuthContext>
 			</body>
-			<GoogleAnalytics gaId="G-348XQPBTET" />
 		</html>
 	)
 }

@@ -23,7 +23,6 @@ export const UpdatePost = async (
 		...content,
 		cupang_link: cupang_links.shortenUrls[index],
 	}))
-
 	try {
 		return await prisma.$transaction(async (tx) => {
 			await tx.post.update({
@@ -37,71 +36,77 @@ export const UpdatePost = async (
 					tagId: category,
 				},
 			})
-			await tx.briefList.deleteMany({
-				where: {
-					Content: {
+			for (const content of updatedContent) {
+				const updateContent = await tx.content.update({
+					where: {
+						id: content.id,
 						postId: id,
 					},
-				},
-			})
-
-			await tx.commentList.deleteMany({
-				where: {
-					Content: {
-						postId: id,
-					},
-				},
-			})
-
-			await tx.reviewList.deleteMany({
-				where: {
-					Content: {
-						postId: id,
-					},
-				},
-			})
-
-			await tx.content.deleteMany({
-				where: {
-					postId: id,
-				},
-			})
-
-			for (const v of updatedContent) {
-				const contentRecord = await tx.content.create({
 					data: {
-						cupang_link: v.cupang_link,
-						productImage: v.productImage,
-						title: v.title,
-						postId: id,
+						cupang_link: content.cupang_link,
+						productImage: content.productImage,
+						title: content.title,
 					},
 				})
 
-				const commentData = v.commentList.map((vv) => ({
-					contentId: contentRecord.id,
-					text: vv,
-				}))
-
-				const briefListData = v.briefLists.map((brief) => ({
-					contentId: contentRecord.id,
-					text: brief,
-				}))
-
-				const reviewData = v.reiviews.map((review) => ({
-					contentId: contentRecord.id,
-					text: review,
-				}))
-
-				if (commentData.length > 0) {
-					await tx.commentList.createMany({ data: commentData })
+				for (const brief of content.briefLists) {
+					if (brief.id) {
+						await tx.briefList.update({
+							where: {
+								id: brief.id,
+							},
+							data: {
+								text: brief.text,
+							},
+						})
+					} else {
+						await tx.briefList.create({
+							data: {
+								contentId: updateContent.id,
+								text: brief.text,
+							},
+						})
+					}
 				}
 
-				if (briefListData.length > 0) {
-					await tx.briefList.createMany({ data: briefListData })
+				for (const comment of content.commentList) {
+					if (comment.id) {
+						await tx.commentList.update({
+							where: {
+								id: comment.id,
+							},
+							data: {
+								text: comment.text,
+							},
+						})
+					} else {
+						await tx.commentList.create({
+							data: {
+								contentId: updateContent.id,
+								text: comment.text,
+							},
+						})
+					}
 				}
 
-				if (reviewData.length > 0) {
-					await tx.reviewList.createMany({ data: reviewData })
+				for (const review of content.reiviews) {
+					if (review.id) {
+						await tx.reviewList.update({
+							where: {
+								id: review.id,
+							},
+							data: {
+								text: review.text,
+							},
+						})
+					} else {
+						await tx.reviewList.create({
+							data: {
+								contentId: updateContent.id,
+								text: review.text,
+							},
+						})
+					}
 				}
 			}
 			revalidatePath("/")

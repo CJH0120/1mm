@@ -19,14 +19,16 @@ import {
 } from "@/components/ui/select"
 import { CategoryProps } from "../../../add/page"
 import { UpdatePost } from "../../../add/_action/editPost"
+import Editor from "@/components/comm/Editor"
 
-interface commProps {
-	id: number
+export interface ContentCommProps {
+	id: number | null
+	text: string
 }
 export interface Content {
-	briefLists: any[]
-	commentList: any[]
-	reiviews: any[]
+	briefLists: ContentCommProps[]
+	commentList: ContentCommProps[]
+	reiviews: ContentCommProps[]
 	id?: number
 	productImage: string
 	title: string
@@ -118,11 +120,7 @@ const EditPost = ({ categories, data }: EditPostProp) => {
 					className="w-full flex flex-grow-0 flex-shrink-0 h-[50px] rounded"
 					placeholder="제목"
 				/>
-				<Textarea
-					value={desc}
-					placeholder="Type your message here."
-					onChange={(e) => setDesc(e.target.value)}
-				/>
+				<Editor content={desc} setContent={setDesc} />
 				<Contents
 					content={content}
 					handleChange={handleChange}
@@ -158,9 +156,9 @@ const Contents = ({ content, handleChange, setContent }: ContentProps) => {
 				cupang_link: "",
 				title: "",
 				thumbnail: "",
-				commentList: [""],
-				briefLists: [""],
-				reiviews: [""],
+				commentList: [{ text: "", id: null }],
+				briefLists: [{ text: "", id: null }],
+				reiviews: [{ text: "", id: null }],
 			},
 		])
 	}
@@ -215,9 +213,10 @@ const ContentItem = ({
 	briefLists: BriefList,
 	handleChange,
 }: Content & ContentItemProps) => {
-	const [productLists, setProductLists] = useState<string[]>(commentList)
-	const [reviews, setReviews] = useState<string[]>(reiviews)
-	const [briefLists, setBriefLists] = useState<string[]>(BriefList)
+	const [productLists, setProductLists] =
+		useState<ContentCommProps[]>(commentList)
+	const [reviews, setReviews] = useState<ContentCommProps[]>(reiviews)
+	const [briefLists, setBriefLists] = useState<ContentCommProps[]>(BriefList)
 
 	useEffect(() => {
 		setContent((prev) => {
@@ -267,7 +266,9 @@ const ContentItem = ({
 						size={"icon"}
 						variant={"outline"}
 						className="mx-2 w-8 h-8 p-1"
-						onClick={() => setProductLists((prev) => [...prev, ""])}
+						onClick={() =>
+							setProductLists((prev) => [...prev, { text: "", id: null }])
+						}
 					>
 						<PlusIcon />
 					</Button>
@@ -285,12 +286,12 @@ const ContentItem = ({
 						<Input
 							key={index}
 							name="productList"
-							value={v}
+							value={v.text}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								const newValue = e.target.value
 								setProductLists((prevProductLists) => {
 									const newProductLists = [...prevProductLists]
-									newProductLists[index] = newValue
+									newProductLists[index].text = newValue
 									return newProductLists
 								})
 							}}
@@ -306,7 +307,9 @@ const ContentItem = ({
 						size={"sm"}
 						variant={"outline"}
 						className="mx-2 w-8 h-8 p-1"
-						onClick={() => setReviews((prev) => [...prev, ""])}
+						onClick={() =>
+							setReviews((prev) => [...prev, { text: "", id: null }])
+						}
 					>
 						<PlusIcon />
 					</Button>
@@ -324,12 +327,12 @@ const ContentItem = ({
 						<Input
 							key={index}
 							name="productList"
-							value={v}
+							value={v.text}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								const newValue = e.target.value
 								setReviews((prevProductLists) => {
 									const newProductLists = [...prevProductLists]
-									newProductLists[index] = newValue
+									newProductLists[index].text = newValue
 									return newProductLists
 								})
 							}}
@@ -345,7 +348,9 @@ const ContentItem = ({
 						size={"sm"}
 						variant={"outline"}
 						className="mx-2 w-8 h-8 p-1"
-						onClick={() => setBriefLists((prev) => [...prev, ""])}
+						onClick={() =>
+							setBriefLists((prev) => [...prev, { text: "", id: null }])
+						}
 					>
 						<PlusIcon />
 					</Button>
@@ -363,12 +368,12 @@ const ContentItem = ({
 						<Input
 							key={index}
 							name="productList"
-							value={v}
+							value={v.text}
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								const newValue = e.target.value
 								setBriefLists((prevProductLists) => {
 									const newProductLists = [...prevProductLists]
-									newProductLists[index] = newValue
+									newProductLists[index].text = newValue
 									return newProductLists
 								})
 							}}

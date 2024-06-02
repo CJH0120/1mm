@@ -14,11 +14,11 @@ import {
 	SelectContent,
 	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
 import { AddPost } from "../_action/addPost"
+import Editor from "@/components/comm/Editor"
 
 export interface Content {
 	title: string
@@ -57,6 +57,9 @@ const PostAdd = ({ categories }: PostAdd) => {
 	const [title, setTitle] = useState<string>("")
 	const [thumbnail, setThumbnail] = useState<string>("")
 	const [desc, setDesc] = useState<string>("")
+	useEffect(() => {
+		console.log(desc)
+	}, [desc])
 	const handleAdd = async () => {
 		const id = await AddPost(title, desc, thumbnail, content, Number(category))
 		router.push(`/recommend/${id}`)
@@ -103,10 +106,7 @@ const PostAdd = ({ categories }: PostAdd) => {
 					className="w-full flex flex-grow-0 flex-shrink-0 h-[50px] rounded"
 					placeholder="제목"
 				/>
-				<Textarea
-					placeholder="Type your message here."
-					onChange={(e) => setDesc(e.target.value)}
-				/>
+				<Editor content={desc} setContent={setDesc} />
 				<Contents
 					content={content}
 					handleChange={handleChange}

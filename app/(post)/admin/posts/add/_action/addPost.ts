@@ -22,9 +22,8 @@ export const AddPost = async (
 		...content,
 		cupang_link: cupang_links.shortenUrls[index],
 	}))
-	console.log(updatedContent)
 	try {
-		return await prisma.$transaction(async (tx): Promise<number | Error> => {
+		return prisma.$transaction(async (tx): Promise<number | Error> => {
 			const user = await tx.user.findFirstOrThrow({
 				where: {
 					email: process.env.PASS_EMAIL,
@@ -78,10 +77,9 @@ export const AddPost = async (
 					await tx.reviewList.createMany({ data: reviewData })
 				}
 			}
+			revalidatePath("/")
 			return post.id
 		})
-
-		revalidatePath("/")
 	} catch (error) {
 		console.error("Error creating post and content:", error)
 		throw new Error("Failed to create post and content")

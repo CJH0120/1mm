@@ -323,7 +323,7 @@ const ContentItem = ({
 			{/* 요약 섹션 */}
 			<div className="flex flex-col mt-5">
 				<CardTitle className="text-xl">
-					실사용 리뷰 섹션
+					요약 섹션
 					<Button
 						size={"sm"}
 						variant={"outline"}

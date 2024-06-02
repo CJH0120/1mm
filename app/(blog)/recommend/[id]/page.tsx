@@ -1,21 +1,21 @@
 import Image from "next/image"
 import { prisma } from "@/db/prisma"
 import { notFound } from "next/navigation"
-import { Card, CardDescription, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Metadata, ResolvingMetadata } from "next"
-import { UserSelectLog } from "../../_action/useUserSelect"
 import Quickly from "../../_components/quickly"
 import ProductSection from "../../_components/productSection"
 
 export const dynamic = "force-static"
+export const revalidate = false
+
 import dynamicImport from "next/dynamic"
 
 const DynamicPreview = dynamicImport(
 	() => import("@/components/comm/Preview"),
+
 	{
-		loading: () => <p>Loading...</p>,
+		ssr: false,
+		loading: () => null,
 	}
 )
 interface DetailProps {
@@ -97,7 +97,7 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 	return (
 		<div className="px-5 w-full max-w-[777px]">
 			<article className="h-fit">
-				<header className="w-full pt-[24px]">
+				<header className="w-full p-[24px]">
 					<div className="w-full  relative aspect-square max-h-[300px]  rounded-sm	 ">
 						<Image
 							style={{ objectFit: "cover" }}

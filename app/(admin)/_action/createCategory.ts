@@ -35,7 +35,7 @@ export const createCategory = async (path: string, name: string) => {
 			revalidatePath("/admin/tags")
 			return { status: "success" }
 		} catch (error) {
-			console.log(error)
+			console.error(error)
 			return { status: "error", errorMessage: "중복된 데이터." }
 		} finally {
 			await prisma.$disconnect()

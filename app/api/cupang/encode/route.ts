@@ -29,8 +29,7 @@ export async function POST(req: Request) {
 		body: JSON.stringify(REQUEST),
 	}).then((v) => v.json())
 	const shortenUrls = res.data.map(
-		(item: { shortenUrl: any }) => item.shortenUrl
+		(item: { landingUrl: any }) => item.landingUrl
 	)
-	console.log(shortenUrls)
 	return Response.json({ shortenUrls })
 }

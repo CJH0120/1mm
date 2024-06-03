@@ -19,7 +19,6 @@ const getItems = async (): Promise<API.BlogCardProps[]> => {
 				createdAt: "desc",
 			},
 		})
-		console.log(await data)
 		return (await data).map((post: any) => ({
 			cardId: post.id,
 			cardTitle: post.title,

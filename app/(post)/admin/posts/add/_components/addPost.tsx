@@ -57,9 +57,7 @@ const PostAdd = ({ categories }: PostAdd) => {
 	const [title, setTitle] = useState<string>("")
 	const [thumbnail, setThumbnail] = useState<string>("")
 	const [desc, setDesc] = useState<string>("")
-	useEffect(() => {
-		console.log(desc)
-	}, [desc])
+
 	const handleAdd = async () => {
 		const id = await AddPost(title, desc, thumbnail, content, Number(category))
 		router.push(`/recommend/${id}`)

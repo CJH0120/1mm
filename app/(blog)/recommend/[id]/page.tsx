@@ -9,12 +9,13 @@ export const dynamic = "force-static"
 export const revalidate = false
 
 import dynamicImport from "next/dynamic"
+import { Skeleton } from "@/components/ui/skeleton"
 const DynamicPreview = dynamicImport(
 	() => import("@/components/comm/Preview"),
 
 	{
 		ssr: false,
-		loading: () => null,
+		loading: () => <Skeleton className="w-full h-full min-h-[150px] " />,
 	}
 )
 interface DetailProps {
@@ -113,7 +114,9 @@ const RecommendDetail = async ({ params }: { params: { id: string } }) => {
 					<div className="mt-[20px]">{detailData.regDate}</div>
 				</header>
 				<div className="py-5">
-					<DynamicPreview content={detailData.desc} />
+					<div className="min-h-[150px]">
+						<DynamicPreview content={detailData.desc} />
+					</div>
 
 					<div className="my-[30px] flex flex-col gap-9">
 						<ProductSection

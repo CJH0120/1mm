@@ -9,4 +9,4 @@ Next.js 14 Approuter에  revalidatePath를 사용하여  캐싱을 효율적으�
 ## 스크린샷
 
 <img src="https://github.com/CJH0120/1mm/assets/97073471/b80f5d25-e203-4f87-a0bb-f4afaa040e4a" alt="스크린샷 1" width="300"/>
-<img src="https://github.com/CJH0120/1mm/assets/97073471/21a889de-f6d0-456a-a5e1-c4a6b118778b" alt="스크린샷 2" width="300"/>
+<img src="https://github.com/CJH0120/1mm/assets/97073471/779aa11f-bf0f-4823-a73f-120be5827648" alt="스크린샷 2" width="300"/>

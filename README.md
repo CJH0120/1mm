@@ -1,4 +1,4 @@
-# Next.js 14 캐싱 블로그
+# Next.js 14
 
 Next.js 14 Approuter에  revalidatePath를 사용하여  캐싱을 효율적으로 관리하고 ISR(Incremental Static Regeneration)과 SSG(Static Site Generation)를 사용하는 블로그 프로젝트입니다.
 
